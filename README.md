@@ -4,7 +4,7 @@ Sistema de Eventos criado no curso avançado Welcome To The Django
 ### Requisitos mínimos:
 - git
 - heroku
-- python versão >= 3.5 instalado
+- python versão >= 3.5
 
 ## Como clonar e rodar o projeto na sua máquina?
 1. Clone o repositório
