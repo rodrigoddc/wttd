@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core import mail
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -35,11 +36,13 @@ def new(request):
 	return render(request, 'subscriptions/subscription_form.html', {'form': SubscriptionForm()})
 
 
-def detail(request, pk):
+def detail(request, hash):
 	try:
-		subscription = Subscription.objects.get(pk=pk)
+		subscription = Subscription.objects.get(hash=hash)
 	except Subscription.DoesNotExist:
 		raise  Http404
+	except ValidationError:
+		raise  Http404('Campo requisitado não é válido')
 
 	return render(request, template_name='subscriptions/subscription_detail.html', context={'subscription': subscription})
 

@@ -41,12 +41,14 @@ class SubscribeGet(TestCase):
 
 class SubscribePostValid(TestCase):
 	def setUp(self):
-		data = dict(name="Rodrigo Delfino", cpf="12345678900", email="a@a.com", phone="00-0000-0000")
-		self.response = self.client.post('/inscricao/', data)
+		self.data = dict(name="Rodrigo Delfino", cpf="12345678900",
+		            email="a@a.com", phone="00-0000-0000")
+		self.response = self.client.post('/inscricao/', self.data)
 
 	def test_post(self):
-		""" Valid POST should redirect to /inscricao/pk/ """
-		self.assertRedirects(self.response, '/inscricao/1/')
+		""" Valid POST should redirect to /inscricao/hash/ """
+		obj = Subscription.objects.first()
+		self.assertRedirects(self.response, f'/inscricao/{obj.hash}/')
 
 	def test_save_sibscription(self):
 		self.assertTrue(Subscription.objects.exists())

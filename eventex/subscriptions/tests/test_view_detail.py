@@ -11,7 +11,7 @@ class SubscriptionDetailGet(TestCase):
 			email='a@a.com',
 			phone='00-00000000'
 		)
-		self.response = self.client.get(f'/inscricao/{self.obj.pk}/')
+		self.response = self.client.get(f'/inscricao/{self.obj.hash}/')
 
 	def test_get(self):
 		self.assertEqual(200, self.response.status_code)
@@ -35,5 +35,6 @@ class SubscriptionDetailGet(TestCase):
 class SubscriptionDetailNotFound(TestCase):
 
 	def test_not_found(self):
-		response = self.client.get('/inscricao/0/')
+		import uuid
+		response = self.client.get(f'/inscricao/{uuid.uuid4()}/')
 		self.assertEqual(404, response.status_code)
