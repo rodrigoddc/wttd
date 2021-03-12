@@ -1,5 +1,5 @@
 # Eventex
-Sistema de Eventos criado no curso avançado Welcome To The Django
+Sistema de Eventos criado no curso avançado Welcome To The Django. <br>
 Exemplo disponível em: https://eventex-rodrigoddc.herokuapp.com/
 
 ### Requisitos mínimos:
