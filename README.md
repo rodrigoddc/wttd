@@ -37,17 +37,15 @@ Sistema de Eventos criado no curso avançado Welcome To The Django
 ## Como fazer o deploy?
 1.  Crie uma instância no heroku
     - `heroku create minha_instância`
-2. Envie as configurações para o heroku
-   - `heroku config:push`
-3. Defina uma SECRET_KEY para instância 
+2. Defina uma SECRET_KEY para instância 
    - à partir do django shell 
      - `django.core.management.utils.get_random_secret_key()`
-   - `heroku config:set SECRET_KEY=value_above_from_terminal`
-4. Defina o DEBUG=False
+   - `heroku config:set SECRET_KEY=copie_e_cole_do_valor_gerado_acima`
+3. Defina o DEBUG=False
     - `heroku config:set DEBUG=False`
-5. Configure o serviço de email
+4. Configure o serviço de email
    - preencha os dados em .env como desejar
-6. Envie o código para o heroku
+5. Envie o código para o heroku
     - `git push heroku`
 
 Be happy =]
