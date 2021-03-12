@@ -1,5 +1,6 @@
 # Eventex
 Sistema de Eventos criado no curso avançado Welcome To The Django
+Exemplo disponível em: https://eventex-rodrigoddc.herokuapp.com/
 
 ### Requisitos mínimos:
 - git
