@@ -1,12 +1,12 @@
 from django.test import TestCase
-
+from django.shortcuts import resolve_url
 from eventex.subscriptions.forms import SubscriptionForm
 from eventex.subscriptions.models import Subscription
 
 
-class SubscribeGet(TestCase):
+class SubscriptionsNewGet(TestCase):
 	def setUp(self):
-		self.response = self.client.get('/inscricao/')
+		self.response = self.client.get(resolve_url('subscriptions:new'))
 
 	def test_get(self):
 		""" Must return status code 200 """
@@ -39,24 +39,24 @@ class SubscribeGet(TestCase):
 		self.assertIsInstance(form, SubscriptionForm)
 
 
-class SubscribePostValid(TestCase):
+class SubscriptionsNewPostValid(TestCase):
 	def setUp(self):
 		self.data = dict(name="Rodrigo Delfino", cpf="12345678900",
 		            email="a@a.com", phone="00-0000-0000")
-		self.response = self.client.post('/inscricao/', self.data)
+		self.response = self.client.post(resolve_url('subscriptions:new'), self.data)
 
 	def test_post(self):
 		""" Valid POST should redirect to /inscricao/hash/ """
 		obj = Subscription.objects.first()
-		self.assertRedirects(self.response, f'/inscricao/{obj.hash}/')
+		self.assertRedirects(self.response, resolve_url('subscriptions:detail', obj.hash))
 
 	def test_save_sibscription(self):
 		self.assertTrue(Subscription.objects.exists())
 
 
-class SubscribePostInvalid(TestCase):
+class SubscriptionsNewPostInvalid(TestCase):
 	def setUp(self) -> None:
-		self.response = self.client.post('/inscricao/', {})
+		self.response = self.client.post(resolve_url('subscriptions:new'), {})
 
 	def test_post(self):
 		""" Invalid POST should not be redirect """
