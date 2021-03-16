@@ -26,6 +26,21 @@ class SubscriptionFormTest(TestCase):
 		form = self.make_validated_form(name='RODRIGO delfino')
 		self.assertEqual('Rodrigo Delfino', form.cleaned_data['name'])
 
+	def tes_email_is_optional(self):
+		""" EMAIL field must be optional """
+		form = self.make_validated_form(email='')
+		self.assertFalse(form.errors)
+
+	def tes_phone_is_optional(self):
+		""" PHONE field must be optional """
+		form = self.make_validated_form(phone='')
+		self.assertFalse(form.errors)
+
+	def test_must_informe_email_or_phone(self):
+		""" EMAIL and PHONE are optional, but one must ve informed """
+		form = self.make_validated_form(email='', phone='')
+		self.assertListEqual(['__all__'], list(form.errors))
+
 	def assertFormErrorCode(self, form, field, code):
 		""" AUX assert method to build form with respectives validation code errors to compare """
 		errors = form.errors.as_data()
