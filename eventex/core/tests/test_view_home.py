@@ -46,4 +46,12 @@ class HomeTest(TestCase):
 		]
 		for expected in contents:
 			with self.subTest():
-				self.assertContains(self.response, expected)
+				self.assertContains(response=self.response, text=expected)
+
+	def test_speakers_link(self):
+		expected = 'href="{}#speakers"'.format(resolve_url('home'))
+		self.assertContains(response=self.response, text=expected)
+
+	def test_talks_link(self):
+		expected = 'href="{}"'.format(resolve_url('talk_list'))
+		self.assertContains(response=self.response, text=expected)
