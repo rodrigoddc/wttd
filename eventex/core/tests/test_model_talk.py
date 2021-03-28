@@ -4,7 +4,7 @@ from eventex.core.models import Talk, Course
 from eventex.core.templates.core.managers import PeriodManager
 
 
-class TalkModel(TestCase):
+class TalkModelTest(TestCase):
 	def setUp(self) -> None:
 		self.talk = Talk.objects.create(
 			title='Título da palestra',
@@ -45,6 +45,8 @@ class TalkModel(TestCase):
 	def test_str(self):
 		self.assertEqual('Título da palestra', self.talk.title)
 
+	def test_ordering(self):
+		self.assertListEqual(['start'], Talk._meta.ordering)
 
 class PeriodManagerTest(TestCase):
 	def setUp(self) -> None:
@@ -68,7 +70,7 @@ class PeriodManagerTest(TestCase):
 class CourseModelTest(TestCase):
 	def setUp(self) -> None:
 		self.course = Course.objects.create(title='Título do curso', start='09:00', description='Descrição do curso',
-		                                    slots=20)
+		                                       slots=20)
 
 	def test_create(self):
 		self.assertTrue(Course.objects.exists())
@@ -85,3 +87,6 @@ class CourseModelTest(TestCase):
 
 	def test_manager(self):
 		self.assertIsInstance(Course.objects, PeriodManager)
+
+	def test_ordering(self):
+		self.assertListEqual(['start'], Course._meta.ordering)

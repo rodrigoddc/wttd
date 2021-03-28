@@ -12,9 +12,9 @@ class TalkListGet(TestCase):
 		talk_2 = Talk.objects.create(title='Título da palestra',
 		                             start='13:00',
 		                             description='Descrição da palestra')
-		course_1 = Talk.objects.create(title='Título da palestra',
-		                               start='13:00',
-		                               description='Descrição da palestra')
+		course_1 = Talk.objects.create(title='Título do Curso',
+		                               start='09:00',
+		                               description='Descrição do Curso')
 
 		speaker = Speaker.objects.create(
 			name='Alan Turing',
@@ -52,7 +52,7 @@ class TalkListGet(TestCase):
 				self.assertContains(self.response,  count=count, text=expected)
 
 	def test_context(self):
-		variables = ['morning_talks', 'afternoon_talks', 'courses']
+		variables = ['morning_talks', 'afternoon_talks']
 		for key in variables:
 			with self.subTest():
 				self.assertIn(key, self.response.context)
