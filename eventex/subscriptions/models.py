@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.shortcuts import resolve_url
 
 from eventex.subscriptions.validators import validate_cpf
 
@@ -21,3 +22,6 @@ class Subscription(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def get_absolute_url(self):
+		return resolve_url('subscriptions:detail', self.pk)

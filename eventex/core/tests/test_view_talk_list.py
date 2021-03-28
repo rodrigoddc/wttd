@@ -52,7 +52,7 @@ class TalkListGet(TestCase):
 				self.assertContains(self.response,  count=count, text=expected)
 
 	def test_context(self):
-		variables = ['morning_talks', 'afternoon_talks']
+		variables = ['talk_list']
 		for key in variables:
 			with self.subTest():
 				self.assertIn(key, self.response.context)
