@@ -7,11 +7,14 @@ from eventex.core.models import Talk, Speaker
 class TalkListGet(TestCase):
 	def setUp(self) -> None:
 		talk_1 = Talk.objects.create(title='Título da palestra',
-		     start='10:00',
-		     description='Descrição da palestra')
+		                             start='10:00',
+		                             description='Descrição da palestra')
 		talk_2 = Talk.objects.create(title='Título da palestra',
-		     start='13:00',
-		     description='Descrição da palestra')
+		                             start='13:00',
+		                             description='Descrição da palestra')
+		course_1 = Talk.objects.create(title='Título da palestra',
+		                               start='13:00',
+		                               description='Descrição da palestra')
 
 		speaker = Speaker.objects.create(
 			name='Alan Turing',
@@ -21,6 +24,7 @@ class TalkListGet(TestCase):
 
 		talk_1.speakers.add(speaker)
 		talk_2.speakers.add(speaker)
+		course_1.speakers.add(speaker)
 
 		self.response = self.client.get(resolve_url('talk_list'))
 
@@ -36,16 +40,19 @@ class TalkListGet(TestCase):
 			(2, 'Título da palestra'),
 			(1, '10:00'),
 			(1, '13:00'),
-			(2, '/palestrantes/alan-turing/'),
-			(2, 'Alan Turing'),
+			(3, '/palestrantes/alan-turing/'),
+			(3, 'Alan Turing'),
 			(2, 'Descrição da palestra'),
+			(1, 'Título do Curso'),
+			(1, '09:00'),
+			(1, 'Descrição do Curso'),
 		]
 		for count, expected in contents:
 			with self.subTest():
 				self.assertContains(self.response,  count=count, text=expected)
 
 	def test_context(self):
-		variables = ['morning_talks', 'afternoon_talks']
+		variables = ['morning_talks', 'afternoon_talks', 'courses']
 		for key in variables:
 			with self.subTest():
 				self.assertIn(key, self.response.context)
